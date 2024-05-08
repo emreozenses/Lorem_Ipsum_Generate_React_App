@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import text from './data';
+import { nanoid } from 'nanoid';
 
 
 const App = () => {
@@ -41,8 +42,8 @@ const handleSubmit = (e)=>{
           </button>
       </form>
       <article className='lorem-text'>
-        {newText.map((item,index)=>{
-          return <p key={index}>{item}</p>
+        {newText.map((item)=>{
+          return <p key={nanoid()}>{item}</p>
         })}
       </article>
     </section>
