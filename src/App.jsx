@@ -1,30 +1,50 @@
 import { useState } from 'react';
-import {text} from './data';
+import text from './data';
 
 
 const App = () => {
 const [count,setCount] = useState(1);
+const [newText,setNewText] = useState([]);
+
+const handleParagraphChange = (e)=>{
+  setCount(e.target.value);
+}
+
+const handleSubmit = (e)=>{
+  e.preventDefault();
+  let amount = parseInt(count);
+  const slicedText = text.slice(0,amount);
+  setNewText(slicedText);
+}
 
   return (
-    <div>
-      <form className="form">
+    <section className='section-center'>
         <h4>tired of boring lorem ipsum?</h4>
-        <div className="form-row">
-          <label htmlFor="name" className="form-label">
+      <form className="lorem-form" onSubmit={handleSubmit}>
+        
+          <label htmlFor="amount">
             paragraphs:
           </label>
           <input
             type="number"
-            className="form-input"
-            name="name"
-            id="name"
+            
+            name="amount"
+            id="amount"
             value={count}
+            max='8'
+            min='1'
+            step='1'
+            onChange={handleParagraphChange}
           />
-          <button type="submit" className="btn btn-block">
+          <button type="submit" className="btn">
             generate
           </button>
-        </div>
       </form>
-    </div>
+      <article className='lorem-text'>
+        {newText.map((item,index)=>{
+          return <p key={index}>{item}</p>
+        })}
+      </article>
+    </section>
   )};
 export default App;
